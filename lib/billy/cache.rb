@@ -16,7 +16,7 @@ module Billy
 
     def cached?(method, url, body)
       # Only log the key the first time it's looked up (in this method)
-      key = key(method, url, body, true)
+      key = key(method, url, body)
       !@cache[key].nil? || persisted?(key)
     end
 
@@ -86,7 +86,7 @@ module Billy
         key += '_' + Digest::SHA1.hexdigest(body_formatted)
       end
 
-      Billy.log(:info, "puffing-billy: CACHE KEY for '#{orig_url}#{body_msg}' is '#{key}'") if log_key
+      Billy.log(:info, "puffing-billy: CACHE KEY for '#{orig_url}' is '#{key}'") if log_key
       key
     end
 
